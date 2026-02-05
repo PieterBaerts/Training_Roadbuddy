@@ -80,10 +80,12 @@ class CarpoolForm extends React.Component {
     } else {
       const dt = new Date(departure_time);
       if (isNaN(dt.getTime())) errors.push('Departure time is invalid');
-      else if (dt <= new Date()) errors.push('Departure time must be in the future');
+      // BUG: No past date validation in frontend
+      // else if (dt <= new Date()) errors.push('Departure time must be in the future');
     }
     const pl = parseInt(passenger_limit);
-    if (isNaN(pl) || pl < 1) errors.push('Passenger limit must be a number >= 1');
+    // BUG: No validation for minimum passenger limit
+    // if (isNaN(pl) || pl < 1) errors.push('Passenger limit must be a number >= 1');
 
     if (errors.length) {
       this.setState({ form_errors: errors });
@@ -166,8 +168,8 @@ class CarpoolForm extends React.Component {
     const { filterOrigin, filterDestination } = this.state;
     const filteredRides = this.state.rides.filter(ride => {
       return (
-        ride.origin.toLowerCase().includes(filterOrigin.toLowerCase()) &&
-        ride.destination.toLowerCase().includes(filterDestination.toLowerCase())
+        ride.origin.includes(filterOrigin) &&
+        ride.destination.includes(filterDestination)
       );
     });
 

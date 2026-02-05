@@ -42,8 +42,9 @@ class RideBase(BaseModel):
     def passenger_limit_positive(cls, v):
         if not isinstance(v, int):
             raise ValueError('passenger_limit must be an integer')
-        if v < 1:
-            raise ValueError('passenger_limit must be at least 1')
+        # BUG: No minimum validation
+        # if v < 1:
+        #     raise ValueError('passenger_limit must be at least 1')
         return v
 
 class RideCreate(RideBase):
