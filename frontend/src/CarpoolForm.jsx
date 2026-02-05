@@ -305,13 +305,13 @@ class CarpoolForm extends React.Component {
                 />
                 <button
                   onClick={() => this.handleAddPassenger(ride.id)}
-                  disabled={ride.passengers && ride.passengers.length >= ride.passenger_limit}
+                  disabled={ride.passengers && ride.passengers.length > ride.passenger_limit}
                 >
                   Add Passenger
                 </button>
               </div>
               
-              {ride.passengers && ride.passengers.length >= ride.passenger_limit && (
+              {ride.passengers && ride.passengers.length > ride.passenger_limit && (
                 <p style={{ color: "red", marginBottom: "10px" }}>This ride is full.</p> // Moved and added spacing
               )}
 
