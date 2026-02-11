@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,7 +18,8 @@ export default function LoginPage() {
 
     if (res.ok) {
       const data = await res.json();
-      setMessage(`Welcome, ${data.username}`);
+      localStorage.setItem("user", JSON.stringify(data));
+      navigate("/");
     } else {
       setMessage("Invalid credentials");
     }

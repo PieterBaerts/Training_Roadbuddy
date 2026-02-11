@@ -27,3 +27,14 @@ Feature: Create carpool ride via UI
     And I click on "Create Ride" without waiting
     Then I should see a message "Departure time must be in the future"
     And I should not see "Alice" in the ride list
+
+  Scenario: Admin can delete a carpool ride
+    Given I am logged in as admin
+    And a carpool ride exists with driver "Alice"
+    When I click on "Delete" for "Alice"'s ride
+    Then I should not see "Alice" in the ride list
+
+  Scenario: Regular user cannot delete a carpool ride
+    Given I am logged in as a regular user
+    And a carpool ride exists with driver "Alice"
+    Then I should not see a "Delete" button for "Alice"'s ride

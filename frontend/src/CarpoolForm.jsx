@@ -5,6 +5,7 @@ class CarpoolForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: null,
       driver_name: "",
       origin: "",
       destination: "",
@@ -20,7 +21,16 @@ class CarpoolForm extends React.Component {
 
   componentDidMount() {
     this.fetchRides();
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      this.setState({ user: JSON.parse(userData) });
+    }
   }
+
+  handleLogout = () => {
+    localStorage.removeItem("user");
+    this.setState({ user: null });
+  };
 
   formatDate = (isoString) => {
     if (!isoString) return "";
@@ -162,6 +172,24 @@ class CarpoolForm extends React.Component {
     }
   };
 
+  handleDeleteRide = async (rideId) => {
+    if (!window.confirm("Are you sure you want to delete this ride?")) return;
+
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/carpools/rides/${rideId}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        await this.fetchRides();
+      } else {
+        console.error("Failed to delete ride");
+      }
+    } catch (error) {
+      console.error("Error deleting ride:", error);
+    }
+  };
+
   render() {
     const { filterOrigin, filterDestination } = this.state;
     const filteredRides = this.state.rides.filter(ride => {
@@ -173,6 +201,12 @@ class CarpoolForm extends React.Component {
 
     return (
       <div style={{ maxWidth: '420px', margin: '0 auto', padding: '16px' }}>
+        {this.state.user && (
+          <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>Welcome, {this.state.user.username} ({this.state.user.role})</span>
+            <button onClick={this.handleLogout}>Log Out</button>
+          </div>
+        )}
         <h1>Carpool Planner</h1>
         {this.state.form_errors && this.state.form_errors.length > 0 && (
           <div style={{ color: 'red', marginBottom: '12px' }}>
@@ -283,6 +317,17 @@ class CarpoolForm extends React.Component {
                   </div>
                 </div>
               </div>
+
+              {this.state.user && this.state.user.role === 'admin' && (
+                <div style={{ marginBottom: '8px' }}>
+                  <button 
+                    onClick={() => this.handleDeleteRide(ride.id)}
+                    style={{ backgroundColor: '#ff4444', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer' }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
 
               {/* 📍 Kaartweergave */}
               <RouteMap origin={ride.origin} destination={ride.destination} />

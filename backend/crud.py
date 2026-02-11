@@ -67,3 +67,17 @@ def add_passenger_to_ride(db: Session, ride_id: int, passenger: schemas.Passenge
     db.refresh(db_passenger)
     return db_passenger
 
+
+def delete_ride(db: Session, ride_id: int):
+    ride = db.query(models.Ride).filter(models.Ride.id == ride_id).first()
+    if not ride:
+        raise HTTPException(status_code=404, detail="Ride not found")
+    
+    # Delete associated passengers first if needed (SQLAlchemy might handle this via cascades if configured)
+    # But here we do it explicitly to be safe if cascade isn't set.
+    db.query(models.Passenger).filter(models.Passenger.ride_id == ride_id).delete()
+    
+    db.delete(ride)
+    db.commit()
+    return {"status": "success"}
+
