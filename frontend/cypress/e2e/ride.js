@@ -134,32 +134,6 @@ Then(`I should not see {string} listed under {string}'s ride`, (passenger, drive
   });
 });
 
-Given("I am logged in as admin", () => {
-  localStorage.setItem("user", JSON.stringify({ username: "admin", role: "admin" }));
-});
-
-Given("I am logged in as a regular user", () => {
-  localStorage.setItem("user", JSON.stringify({ username: "alice", role: "user" }));
-});
-
-When('I click on "Delete" for {string}\'s ride', (driverName) => {
-  cy.get('.ride-list').contains(driverName)
-    .parents('li')
-    .find('button')
-    .contains('Delete')
-    .click();
-  // Cypress automatically accepts window:confirm by default, but we can be explicit:
-  cy.on('window:confirm', () => true);
-});
-
-Then('I should not see a "Delete" button for {string}\'s ride', (driverName) => {
-  cy.get('.ride-list').contains(driverName)
-    .parents('li')
-    .within(() => {
-      cy.get('button').contains('Delete').should('not.exist');
-    });
-});
-
 When(`I view {string}'s ride details`, (driverName) => {
   // In this current UI, viewing ride details means just being on the carpool page
   // and looking at the ride list. No specific action needed here.

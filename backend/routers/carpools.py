@@ -28,8 +28,3 @@ def read_rides(db: Session = Depends(get_db)):
 @router.post("/rides/{ride_id}/passengers", response_model=schemas.Passenger)
 def add_passenger_to_ride(ride_id: int, passenger: schemas.PassengerCreate, db: Session = Depends(get_db)):
     return crud.add_passenger_to_ride(db=db, ride_id=ride_id, passenger=passenger)
-
-
-@router.delete("/rides/{ride_id}")
-def delete_ride(ride_id: int, db: Session = Depends(get_db)):
-    return crud.delete_ride(db=db, ride_id=ride_id)

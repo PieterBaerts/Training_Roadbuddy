@@ -55,9 +55,7 @@ class LoginRequest(BaseModel):
 @app.post("/login")
 def login(data: LoginRequest):
     if data.username == "alice" and data.password == "secret123":
-        return {"username": data.username, "role": "user"}
-    if data.username == "admin" and data.password == "admin123":
-        return {"username": data.username, "role": "admin"}
+        return {"username": data.username}
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
