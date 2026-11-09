@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, ConfigDict, validator
 from datetime import datetime
 from typing import List, Optional
 
@@ -10,8 +10,7 @@ class PassengerCreate(PassengerBase):
 
 class Passenger(PassengerBase):
     id: int
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class RideBase(BaseModel):
     driver_name: str
@@ -52,8 +51,7 @@ class RideCreate(RideBase):
 
 class Ride(RideBase):
     id: int
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class RideWithPassengers(Ride):
     passengers: List[str] = []

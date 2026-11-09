@@ -16,7 +16,7 @@ A carpooling application designed for friends, colleagues, and large families pl
 - **Framework:** FastAPI
 - **Server:** Uvicorn
 - **Database:** SQLAlchemy with SQLite
-- **Language:** Python 3.9+
+- **Language:** Python 3.15
 
 ### Frontend
 - **Framework:** React 19
@@ -32,7 +32,7 @@ A carpooling application designed for friends, colleagues, and large families pl
 
 ### Prerequisites
 
-- Python 3.9 or higher
+- Python 3.15 (see `.python-version`)
 - Node.js 16 or higher
 - Google Maps API key ([Get one here](https://console.cloud.google.com/google/maps-apis))
 
@@ -99,7 +99,7 @@ A carpooling application designed for friends, colleagues, and large families pl
 
 1. Install test dependencies:
    ```bash
-   pip install behave requests
+   pip install -r requirements-dev.txt
    ```
 
 2. Run tests from the project root:
