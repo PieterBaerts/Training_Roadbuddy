@@ -1,5 +1,6 @@
 import React from "react";
 import RouteMap from "./RouteMap";
+import { API_URL } from "./api";
 
 class CarpoolForm extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class CarpoolForm extends React.Component {
 
   fetchRides = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/carpools/rides/");
+      const response = await fetch(`${API_URL}/carpools/rides/`);
       const data = await response.json();
       this.setState({ rides: data });
     } catch (error) {
@@ -100,7 +101,7 @@ class CarpoolForm extends React.Component {
     };
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/carpools/rides/", {
+      const res = await fetch(`${API_URL}/carpools/rides/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newRide),
@@ -138,7 +139,7 @@ class CarpoolForm extends React.Component {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/carpools/rides/${rideId}/passengers`,
+        `${API_URL}/carpools/rides/${rideId}/passengers`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

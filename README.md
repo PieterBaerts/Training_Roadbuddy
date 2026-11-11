@@ -16,7 +16,7 @@ A carpooling application designed for friends, colleagues, and large families pl
 - **Framework:** FastAPI
 - **Server:** Uvicorn
 - **Database:** SQLAlchemy with SQLite
-- **Language:** Python 3.15
+- **Language:** Python 3.11+
 
 ### Frontend
 - **Framework:** React 19
@@ -32,7 +32,7 @@ A carpooling application designed for friends, colleagues, and large families pl
 
 ### Prerequisites
 
-- Python 3.15 (see `.python-version`)
+- Python 3.11 or higher (see `.python-version`)
 - Node.js 16 or higher
 - Google Maps API key ([Get one here](https://console.cloud.google.com/google/maps-apis))
 
