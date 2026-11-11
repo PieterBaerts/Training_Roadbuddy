@@ -1,6 +1,6 @@
 # RoadBuddy
 
-A carpooling application designed for friends, colleagues, and large families planning trips. RoadBuddy helps assign passengers to cars efficiently with Google Maps integration for route visualization.
+A carpooling application designed for friends, colleagues, and large families planning trips. RoadBuddy helps assign passengers to cars efficiently with Google Maps integration for route visualization. 
 
 ## Features
 
